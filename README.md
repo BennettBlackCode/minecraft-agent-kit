@@ -52,7 +52,7 @@ Edit `.env`:
 
 The world runs on the host's computer. How you reach it depends on where you are:
 
-- **Same Wi-Fi as the host:** use the host's local address, e.g. `MC_HOST=192.168.1.110`. Guest Wi-Fi networks
+- **Same Wi-Fi as the host:** use the host's local address, e.g. `MC_HOST=192.168.1.50`. Guest Wi-Fi networks
   often block this; use the main network.
 - **Anywhere else:** the host needs a tunnel (for example [playit.gg](https://playit.gg) or Tailscale) and gives you
   that address instead. A `192.168.x.x` address only works on the host's own network.
