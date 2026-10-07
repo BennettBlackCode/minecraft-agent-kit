@@ -149,6 +149,7 @@ the command gets blocked.
 ./mc home [x= y= z=]                  # remember a home location
 ./mc climb [y=]                       # climb the ladder you're on
 ./mc stairs_up steps=10               # dig a staircase up toward the surface
+./mc dismount                         # get out of a minecart, boat or horse
 ./mc stop
 ./mc eval <<< 'return bot.inventory.items().map(i=>i.name+" x"+i.count)'
 ```

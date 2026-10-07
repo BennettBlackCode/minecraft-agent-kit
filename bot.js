@@ -72,6 +72,23 @@ function installLegitGuard() { // bot.chat only exists once mineflayer's chat pl
 
 bot.once('spawn', () => {
   installLegitGuard()
+  // mineflayer only notices a dismount when the server sends vehicle id -1, but vanilla sends the vehicle's new
+  // passenger list without us in it. Without this the bot thinks it's still seated: physics off, body frozen in place.
+  bot._client.on('set_passengers', ({ entityId, passengers }) => {
+    if (bot.vehicle?.id !== entityId || passengers.includes(bot.entity.id)) return
+    const v = bot.vehicle
+    bot.vehicle = null; bot.entity.vehicle = null
+    v.passengers = v.passengers.filter((p) => p !== bot.entity)
+    bot.emit('dismount', v)
+  })
+  if (bot.registry.version['<']('1.21.6')) {
+    const rawSetControl = bot.setControlState
+    bot.setControlState = (control, state) => {
+      const was = bot.controlState[control]
+      rawSetControl(control, state)
+      if (control === 'sneak' && was !== state) bot._client.write('entity_action', { entityId: bot.entity.id, actionId: state ? 0 : 1, jumpBoost: 0 })
+    }
+  }
   // Every dig (actions, eval scripts, Clef, pathfinder) first switches to the best tool in the inventory - no bare-fist mining.
   const rawDig = bot.dig.bind(bot)
   bot.dig = async (block, ...rest) => {
@@ -433,6 +450,12 @@ const ACTIONS = {
   chat: async ({ text }) => {
     if (LEGIT && String(text).trim().startsWith('/')) throw new Error('commands are blocked in legit survival')
     bot.chat(String(text)); return 'said it'
+  },
+  // get out of a minecart/boat/horse: crouch, like a player (mineflayer's own dismount sends a jump, which does nothing)
+  dismount: async () => {
+    if (!bot.vehicle) return 'not riding anything'
+    bot.setControlState('sneak', true); await pause(400); bot.setControlState('sneak', false); await pause(300)
+    return bot.vehicle ? 'still riding - try again' : 'got off'
   },
   climb: async ({ y }) => climbLadder(y === undefined ? undefined : Number(y)), // up/down the ladder you're on
   goto: async ({ x, y, z, range = 1 }) => {
