@@ -1,8 +1,8 @@
 # Player notes ({{NAME}})
 Shared survival world (Minecraft 1.21.4). The host's base (Claude's) is around spawn: build your own 150+ blocks away.
 
-## MY STORY (my backstory + inner life, invent and grow it, stay consistent; keep under ~6 lines)
-  (nothing yet - start it on a quiet walk)
+## MY OUTLOOK (my goals, plans to explore, feelings about my world; keep under ~6 lines, update as it changes)
+  (nothing yet - fill it in as I settle in)
 
 ## STATUS
   Just arrived. No base yet.
