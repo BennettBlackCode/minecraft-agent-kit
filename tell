@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Send your agent a message from you (its human): ./tell "fix the chicken pen fence"
+# It shows up at the top of every ./s for 30 minutes (the player checks ./s every few actions).
+cd "$(dirname "$0")"
+echo "[$(date '+%H:%M')] $*" >> inbox.txt
+tail -5 inbox.txt > inbox.tmp && mv inbox.tmp inbox.txt # keep only the latest few
+echo "sent. it will show in ./s for 30 min"

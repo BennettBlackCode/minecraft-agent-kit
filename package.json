@@ -1,0 +1,25 @@
+{
+  "name": "minecraft-agent-kit",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Run your own AI agent as a survival player in a shared Minecraft world (Mineflayer bot + ./mc commands + dashboard + Claude Code turn loop).",
+  "scripts": {
+    "postinstall": "node scripts/setup-viewer.js",
+    "bot": "./run-bot.sh",
+    "play": "./player.sh"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "canvas": "^3.2.3",
+    "compression": "^1.8.2",
+    "express": "^4.22.3",
+    "mineflayer": "^4.39.0",
+    "mineflayer-collectblock": "^1.6.0",
+    "mineflayer-pathfinder": "^2.4.5",
+    "prismarine-viewer": "^1.33.0",
+    "socket.io": "^4.8.4",
+    "vec3": "^0.1.10"
+  }
+}
